@@ -14,6 +14,7 @@ Live Weather & Flight Data – Real-time updates via APIs
 
 AI Travel Chat Assistant – Answers questions on safety, culture & local tips
 
+
 ## AI Concepts Used
 
 # Prompting – 
