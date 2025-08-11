@@ -36,3 +36,19 @@ Correctness: Ensure accurate and personalized travel plans based on input
 Efficiency: Use optimized APIs and AI function calling for fast response
 
 Scalability: Cloud-ready backend and vector database for handling high traffic
+
+
+
+# 12-08-2025
+
+Zero-Shot Prompt Example: 
+This project uses zero-shot prompting with OpenAI's API, meaning the model is asked to perform a task without any example given beforehand.
+
+How it works:
+
+You provide only the task instruction or question directly.
+
+The model relies on its training to generate a response without any sample input-output pairs.
+
+Zero-shot prompting is useful for quick, flexible tasks where you want the model to infer what to do from your instructions alone.
+---
