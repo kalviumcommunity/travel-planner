@@ -39,12 +39,12 @@ Scalability: Cloud-ready backend and vector database for handling high traffic
 
 
 
-# 12-08-2025
+# 12-08-2025 
 
 Zero-Shot Prompt Example: 
 This project uses zero-shot prompting with OpenAI's API, meaning the model is asked to perform a task without any example given beforehand.
 
-How it works:
+# How it works:
 
 You provide only the task instruction or question directly.
 
