@@ -51,4 +51,5 @@ You provide only the task instruction or question directly.
 The model relies on its training to generate a response without any sample input-output pairs.
 
 Zero-shot prompting is useful for quick, flexible tasks where you want the model to infer what to do from your instructions alone.
----
+-------
+-------
