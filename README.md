@@ -99,3 +99,4 @@ These inputs are injected into a template prompt to generate a customized reques
  => Plan a 3-day trip to Ooty with a $600 budget. The user is interested in: nature and tea gardens.
 ---
 
+
