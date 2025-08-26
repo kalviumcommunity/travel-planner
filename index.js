@@ -280,7 +280,43 @@
 // planStructuredTrip("ooty",3 );
 
 
-// system and user prompts
+// // system and user prompts
+
+// import dotenv from "dotenv";
+// import OpenAI from "openai";
+
+// dotenv.config();
+
+// const client = new OpenAI({
+//   apiKey: process.env.OPENAI_API_KEY, 
+// });
+
+// async function runPrompt() {
+//   try {
+//     const response = await client.chat.completions.create({
+//       model: "gpt-4.1-mini", 
+//       messages: [
+//         {
+//           role: "system",
+//           content: "You are a helpful travel guide assistant. Always answer politely and give short tips.",
+//         },
+//         {
+//           role: "user",
+//           content: "I want to visit ooty. Suggest 3 must-see places.",
+//         },
+//       ],
+//     });
+
+//     console.log("AI Response:\n", response.choices[0].message.content);
+//   } catch (error) {
+//     console.error("Error:", error);
+//   }
+// }
+
+// runPrompt();
+
+
+// chain of thought prompting
 
 import dotenv from "dotenv";
 import OpenAI from "openai";
@@ -288,29 +324,48 @@ import OpenAI from "openai";
 dotenv.config();
 
 const client = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY, 
+  apiKey: process.env.OPENAI_API_KEY,
 });
 
-async function runPrompt() {
+async function runCoT() {
   try {
-    const response = await client.chat.completions.create({
-      model: "gpt-4.1-mini", 
+    // Without Chain of Thought
+    const simpleResponse = await client.chat.completions.create({
+      model: "gpt-4.1-mini",
       messages: [
         {
           role: "system",
-          content: "You are a helpful travel guide assistant. Always answer politely and give short tips.",
+          content: "You are a smart travel planner assistant.",
         },
         {
           role: "user",
-          content: "I want to visit Pondicherry. Suggest 5 must-see places.",
+          content: "Plan me a 2-day trip to Goa2 on a budget of ₹15,000.",
         },
       ],
     });
 
-    console.log("AI Response:\n", response.choices[0].message.content);
+    console.log("Without CoT:\n", simpleResponse.choices[0].message.content);
+
+    // With Chain of Thought (step by step reasoning)
+    const cotResponse = await client.chat.completions.create({
+      model: "gpt-4.1-mini",
+      messages: [
+        {
+          role: "system",
+          content: "You are a smart travel planner assistant.",
+        },
+        {
+          role: "user",
+          content:
+            "Plan me a 2-day trip to Goa on a budget of ₹15,000. Please explain your reasoning step by step before giving the final plan.",
+        },
+      ],
+    });
+
+    console.log("\nWith CoT:\n", cotResponse.choices[0].message.content);
   } catch (error) {
     console.error("Error:", error);
   }
 }
 
-runPrompt();
+runCoT();
