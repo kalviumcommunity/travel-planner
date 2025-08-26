@@ -24,6 +24,8 @@
 // planTrip("chennai",1);
 
 
+//one shot prompt:
+
 // import dotenv from "dotenv";
 // import OpenAI from "openai/index.js";
 
@@ -176,103 +178,139 @@
 // planTrip("pondicherry", 1, 600, "beaches,sunrise,sunset,food");
 
 
-//structured output
+// //structured output
+
+// import dotenv from "dotenv";
+// import OpenAI from "openai";
+
+// dotenv.config();
+
+// const openai = new OpenAI({
+//   apiKey: process.env.OPENAI_API_KEY,
+// });
+
+// async function planStructuredTrip(destination, days) {
+//   const examples = `
+// Example 1:
+// Input:
+// {
+//   "destination": "Tokyo",
+//   "days": 2
+// }
+
+// Output:
+// {
+//   "day_1": {
+//     "morning": "Visit Senso-ji Temple in Asakusa",
+//     "afternoon": "Explore Akihabara for anime and electronics",
+//     "evening": "Enjoy sushi at Tsukiji Outer Market"
+//   },
+//   "day_2": {
+//     "morning": "Stroll through Shinjuku Gyoen National Garden",
+//     "afternoon": "Visit Meiji Shrine and Takeshita Street in Harajuku",
+//     "evening": "View Tokyo from Tokyo Tower"
+//   }
+// }
+
+// Example 2:
+// Input:
+// {
+//   "destination": "Paris",
+//   "days": 3
+// }
+
+// Output:
+// {
+//   "day_1": {
+//     "morning": "Visit the Eiffel Tower",
+//     "afternoon": "Explore the Louvre Museum",
+//     "evening": "Enjoy dinner along the Seine River"
+//   },
+//   "day_2": {
+//     "morning": "Walk through Montmartre and see Sacré-Cœur",
+//     "afternoon": "Visit Musée d'Orsay",
+//     "evening": "See a cabaret show at Moulin Rouge"
+//   },
+//   "day_3": {
+//     "morning": "Relax at Luxembourg Gardens",
+//     "afternoon": "Shop at Champs-Élysées",
+//     "evening": "Sunset cruise on the Seine"
+//   }
+// }
+// `;
+
+//   try {
+//     const completion = await openai.chat.completions.create({
+//       model: "gpt-4.1-mini",
+//       messages: [
+//         { role: "system", content: "You are a helpful travel planner AI that returns structured JSON output." },
+//         {
+//           role: "user",
+//           content: `${examples}
+
+
+// Input:
+// {
+//   "destination": "${destination}",
+//   "days": ${days}
+// }
+
+// Output:`
+//         }
+//       ],
+//       temperature: 0.7,
+//     });
+
+//     const rawResponse = completion.choices[0].message.content;
+
+//     // Try to parse JSON
+//     try {
+//       const itinerary = JSON.parse(rawResponse);
+//       console.log("\n Structured Itinerary:\n", itinerary);
+//     } catch (e) {
+//       console.error(" Could not parse response as JSON.");
+//       console.log("Raw response:\n", rawResponse);
+//     }
+
+//   } catch (error) {
+//     console.error("Error generating structured itinerary:", error);
+//   }
+// }
+
+// planStructuredTrip("ooty",3 );
+
+
+// system and user prompts
 
 import dotenv from "dotenv";
 import OpenAI from "openai";
 
 dotenv.config();
 
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
+const client = new OpenAI({
+  apiKey: process.env.OPENAI_API_KEY, 
 });
 
-async function planStructuredTrip(destination, days) {
-  const examples = `
-Example 1:
-Input:
-{
-  "destination": "Tokyo",
-  "days": 2
-}
-
-Output:
-{
-  "day_1": {
-    "morning": "Visit Senso-ji Temple in Asakusa",
-    "afternoon": "Explore Akihabara for anime and electronics",
-    "evening": "Enjoy sushi at Tsukiji Outer Market"
-  },
-  "day_2": {
-    "morning": "Stroll through Shinjuku Gyoen National Garden",
-    "afternoon": "Visit Meiji Shrine and Takeshita Street in Harajuku",
-    "evening": "View Tokyo from Tokyo Tower"
-  }
-}
-
-Example 2:
-Input:
-{
-  "destination": "Paris",
-  "days": 3
-}
-
-Output:
-{
-  "day_1": {
-    "morning": "Visit the Eiffel Tower",
-    "afternoon": "Explore the Louvre Museum",
-    "evening": "Enjoy dinner along the Seine River"
-  },
-  "day_2": {
-    "morning": "Walk through Montmartre and see Sacré-Cœur",
-    "afternoon": "Visit Musée d'Orsay",
-    "evening": "See a cabaret show at Moulin Rouge"
-  },
-  "day_3": {
-    "morning": "Relax at Luxembourg Gardens",
-    "afternoon": "Shop at Champs-Élysées",
-    "evening": "Sunset cruise on the Seine"
-  }
-}
-`;
-
+async function runPrompt() {
   try {
-    const completion = await openai.chat.completions.create({
-      model: "gpt-4.1-mini",
+    const response = await client.chat.completions.create({
+      model: "gpt-4.1-mini", 
       messages: [
-        { role: "system", content: "You are a helpful travel planner AI that returns structured JSON output." },
+        {
+          role: "system",
+          content: "You are a helpful travel guide assistant. Always answer politely and give short tips.",
+        },
         {
           role: "user",
-          content: `${examples}
-Now, based on the above style, respond in the same structured JSON format.
-
-Input:
-{
-  "destination": "${destination}",
-  "days": ${days}
-}
-
-Output:`
-        }
+          content: "I want to visit Pondicherry. Suggest 5 must-see places.",
+        },
       ],
-      temperature: 0.7,
     });
 
-    const rawResponse = completion.choices[0].message.content;
-
-    // Try to parse JSON
-    try {
-      const itinerary = JSON.parse(rawResponse);
-      console.log("\n Structured Itinerary:\n", itinerary);
-    } catch (e) {
-      console.error(" Could not parse response as JSON.");
-      console.log("Raw response:\n", rawResponse);
-    }
-
+    console.log("AI Response:\n", response.choices[0].message.content);
   } catch (error) {
-    console.error("Error generating structured itinerary:", error);
+    console.error("Error:", error);
   }
 }
 
-planStructuredTrip("Ooty", 3);
+runPrompt();
