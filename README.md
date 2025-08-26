@@ -39,7 +39,7 @@ Scalability: Cloud-ready backend and vector database for handling high traffic
 
 ---
 
-🚀 Features Upto Date
+🚀 **Features Implemented Upto Date** :
 
 🌍 Generate travel plans for any destination
 
