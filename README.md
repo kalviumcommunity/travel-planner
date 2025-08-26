@@ -37,66 +37,39 @@ Efficiency: Use optimized APIs and AI function calling for fast response
 
 Scalability: Cloud-ready backend and vector database for handling high traffic
 
-
-
-# 12-08-2025 
-
-Zero-Shot Prompt Example: 
-This project uses zero-shot prompting with OpenAI's API, meaning the model is asked to perform a task without any example given beforehand.
-
-# How it works:
-
-You provide only the task instruction or question directly.
-
-The model relies on its training to generate a response without any sample input-output pairs.
-
-Zero-shot prompting is useful for quick, flexible tasks where you want the model to infer what to do from your instructions alone.
 ---
 
-# One-Shot Prompt Example:
+🚀 Features Upto Date
 
-This project uses one-shot prompting with OpenAI’s API, meaning the model is given a single example of the task before being asked to perform it on new input.
+🌍 Generate travel plans for any destination
 
-# How it works:
+⏱️ Flexible itinerary by days of travel
 
-You provide one example input-output pair along with your task instruction.
+🎯 Supports different prompting techniques:
 
-The model uses this example to understand the desired format, tone, or logic.
+**Zero-Shot Prompting** → AI plans trips without prior examples
 
-One-shot prompting is useful when you want to guide the model’s response style or structure with just one reference point.
+**One-Shot Prompting** → Provides one sample travel plan as a guide
+
+**Multi-Shot Prompting** → Uses multiple examples for better consistency
+
+**Dynamic Prompting** → Plans adjust based on user input/preferences
+
+**Chain-of-Thought (CoT)** → AI explains its reasoning step by step
+
+**Structured Output** → Returns itineraries in JSON format for easy integration
+
 ---
 
-# Multi-Shot Prompt Example:
+🛠️ Tech Stack
 
-This project uses multi-shot prompting with OpenAI’s API, meaning the model is given multiple examples of the task before generating its own output.
+Node.js + Express.js – Backend server
 
-# How it works:
+OpenAI API – AI-powered travel planning
 
-You provide several example input-output pairs along with your task instruction.
+dotenv – Environment variable management
 
-The model learns the expected pattern more clearly because of repeated examples.
-
-Multi-shot prompting is useful for complex tasks, ensuring consistent formatting and reducing ambiguity in the model’s responses.
 ---
 
-# Dynamic Prompting Example:
-
-This project uses dynamic prompting with OpenAI’s API, meaning the prompt is generated using real-time user input such as destination, travel days, budget, and interests.
-
-# How it works:
-
-You provide details like:
-
-Dynamic Prompting Example:
-
-This project uses dynamic prompting with OpenAI’s API, meaning the prompt is generated using real-time user input such as destination, travel days, budget, and interests.
-
-# How it works:
-
-You provide user-specific values (e.g., "Ooty", 3 days, $600, "nature and tea gardens").
-
-These inputs are injected into a template prompt to generate a customized request for the AI, like:
- => Plan a 3-day trip to Ooty with a $600 budget. The user is interested in: nature and tea gardens.
----
 
 
