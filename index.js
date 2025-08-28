@@ -69,6 +69,7 @@
 
 
 // // Multi shot prompt:
+
 // import dotenv from "dotenv";
 // import OpenAI from "openai";
 
@@ -174,7 +175,6 @@
 //   }
 // }
 
-// // Customize this call:
 // planTrip("pondicherry", 1, 600, "beaches,sunrise,sunset,food");
 
 
@@ -316,56 +316,74 @@
 // runPrompt();
 
 
-// chain of thought prompting
+// // chain of thought prompting
 
-import dotenv from "dotenv";
-import OpenAI from "openai";
+// import dotenv from "dotenv";
+// import OpenAI from "openai";
 
-dotenv.config();
+// dotenv.config();
 
-const client = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-});
+// const client = new OpenAI({
+//   apiKey: process.env.OPENAI_API_KEY,
+// });
 
-async function runCoT() {
-  try {
-    // Without Chain of Thought
-    const simpleResponse = await client.chat.completions.create({
-      model: "gpt-4.1-mini",
-      messages: [
-        {
-          role: "system",
-          content: "You are a smart travel planner assistant.",
-        },
-        {
-          role: "user",
-          content: "Plan me a 2-day trip to Goa2 on a budget of ₹15,000.",
-        },
-      ],
-    });
+// async function runCoT() {
+//   try {
+//     // Without Chain of Thought
+//     const simpleResponse = await client.chat.completions.create({
+//       model: "gpt-4.1-mini",
+//       messages: [
+//         {
+//           role: "system",
+//           content: "You are a smart travel planner assistant.",
+//         },
+//         {
+//           role: "user",
+//           content: "Plan me a 2-day trip to Goa2 on a budget of ₹15,000.",
+//         },
+//       ],
+//     });
 
-    console.log("Without CoT:\n", simpleResponse.choices[0].message.content);
+//     console.log("Without CoT:\n", simpleResponse.choices[0].message.content);
 
-    // With Chain of Thought (step by step reasoning)
-    const cotResponse = await client.chat.completions.create({
-      model: "gpt-4.1-mini",
-      messages: [
-        {
-          role: "system",
-          content: "You are a smart travel planner assistant.",
-        },
-        {
-          role: "user",
-          content:
-            "Plan me a 2-day trip to Goa on a budget of ₹15,000. Please explain your reasoning step by step before giving the final plan.",
-        },
-      ],
-    });
+//     // With Chain of Thought (step by step reasoning)
+//     const cotResponse = await client.chat.completions.create({
+//       model: "gpt-4.1-mini",
+//       messages: [
+//         {
+//           role: "system",
+//           content: "You are a smart travel planner assistant.",
+//         },
+//         {
+//           role: "user",
+//           content:
+//             "Plan me a 2-day trip to Goa on a budget of ₹15,000. Please explain your reasoning step by step before giving the final plan.",
+//         },
+//       ],
+//     });
 
-    console.log("\nWith CoT:\n", cotResponse.choices[0].message.content);
-  } catch (error) {
-    console.error("Error:", error);
-  }
-}
+//     console.log("\nWith CoT:\n", cotResponse.choices[0].message.content);
+//   } catch (error) {
+//     console.error("Error:", error);
+//   }
+// }
 
-runCoT();
+// runCoT();
+
+//Tokens and Tokenization
+
+const { encoding_for_model } = require("tiktoken");
+
+const countTokens = (inputText, modelName = "gpt-4.1-mini") => {
+  const encoder = encoding_for_model(modelName);
+  const tokens = encoder.encode(inputText);
+  console.log(`\n🧾 Text: ${inputText}`);
+  console.log(`🔢 Token count: ${tokens.length}`);
+  encoder.free(); 
+};
+
+const userPrompt = "Plan a 7-day trip to Japan with a mix of nature, technology, and food experiences.";
+
+countTokens(userPrompt);
+
+
